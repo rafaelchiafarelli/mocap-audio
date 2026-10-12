@@ -1,6 +1,6 @@
 # Local audio stack: open-source generation survey
 
-**Surveyed 2026-10-11.** Licenses change. Re-check a project's LICENSE and
+**Surveyed 2026-10-11.** Licenses change. Re-check a model's LICENSE and
 model card before its output goes into a film, and record the version you
 checked in the run log.
 
@@ -11,7 +11,7 @@ checked in the run log.
    that allows commercial use (MIT, Apache-2.0, BSD, CC0, CC-BY; GPL-family for
    tools). Non-commercial (`-NC`), research-only and capped "community"
    licenses are **not used at all, not even for private tests**. Several
-   projects ship MIT code with restricted weights, so check the weights.
+   model repositories ship MIT code with restricted weights, so check the weights.
 2. **The Mocap Studio environment.** Python 3.12, CUDA 12.8 torch wheels
    (`DEPENDENCIES.md`), RTX 4080 with 16 GB. Each generator pins its own torch,
    so **each generator gets its own isolated environment**.
@@ -33,7 +33,7 @@ checked in the run log.
 
 ## Excluded by the license rule
 
-| Project | Why |
+| Model | Why |
 |---|---|
 | AudioCraft (MusicGen, AudioGen), MusicGen Stereo | CC-BY-NC 4.0 weights (also Python 3.9 + torch 2.1) |
 | Stable Audio Open | Stability AI Community License: free use only below a revenue cap |
@@ -54,11 +54,11 @@ watermarked generators for any synthetic dialogue.
 ## How an experiment is run
 
 1. Start from the film's approved sound direction (its sound map or cue
-   sheet in the project root). This repository holds no film's direction.
+   sheet in the film root). This repository holds no film's direction.
 2. Generate short clips first (10–30 s).
-3. Log every run: project root, task ID, model name and version, weights
+3. Log every run: film root, task ID, model name and version, weights
    license checked, prompt, seed, settings, runtime.
-4. Write outputs under the film's project root, or under `outputs/` here
+4. Write outputs under the film root, or under `outputs/` here
    only for tool tests with neutral prompts.
 5. Every generated clip is labelled `prototype` until the film's creator
    approves it.

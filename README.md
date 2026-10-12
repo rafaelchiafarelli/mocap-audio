@@ -2,7 +2,7 @@
 
 Local-first audio experimentation for the Mocap Studio project.
 
-This repository is the audio workhorse: reusable tools and a local stack for sound and music exploration. It is film-agnostic. Each film's sound decisions, cue maps and briefs live in that film's project root (e.g. `<project-root>/analysis/work/`), and render outputs from this stack are written for a named project and task, never kept here as film material.
+This repository is part of the project (the Mocap Studio code and agents): reusable audio tools and a local stack for recording, editing, analysis and generation, used by the workhorse's sound stage. It is film-agnostic. Each film's sound decisions, cue maps and briefs live in its film root (e.g. `<film-root>/analysis/work/`), and render outputs from this stack are written for a named project and task, never kept here as film material.
 
 ## Purpose
 
@@ -17,7 +17,7 @@ No AI-generated music is treated as approved material unless the creator explici
 
 ## Recommended direction
 
-1. start from the film's creator-approved sound direction (its sound map / cue sheet in the project root);
+1. start from the film's creator-approved sound direction (its sound map / cue sheet in the film root);
 2. explore generative audio only when that film's creator asks for it;
 3. pick the generator from the survey in [`docs/local-audio-stack.md`](docs/local-audio-stack.md): ACE-Step 1.5 (music), MOSS-SoundEffect (effects, ambience), Chatterbox / Kokoro (voice); foley-from-picture and stem separation have no allowed model yet;
 4. use only models whose **weights** license allows commercial use (no `-NC`, not even for tests), and log prompt, seed, model version and license for every run.
