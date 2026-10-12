@@ -2,7 +2,7 @@
 
 Local-first audio experimentation for the Mocap Studio project.
 
-This repository is part of the project (the Mocap Studio code and agents): reusable audio tools and a local stack for recording, editing, analysis and generation, used by the workhorse's sound stage. It is film-agnostic. Each film's sound decisions, cue maps and briefs live in its film root (e.g. `<film-root>/analysis/work/`), and render outputs from this stack are written for a named project and task, never kept here as film material.
+This repository is part of the project (the Mocap Studio code and agents): reusable audio tools and a local stack for recording, editing, analysis and generation, used by the workhorse's sound stage. It is film-agnostic. Each film's sound decisions, cue maps and briefs live in its film root (e.g. `<film-root>/analysis/work/`), and render outputs from this stack are written for a named film and task, never kept here as film material.
 
 ## Purpose
 
