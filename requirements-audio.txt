@@ -1,33 +1,11 @@
-# Local-first audio experimentation stack
-# Keep this intentionally practical for Linux / WSL2 and NVIDIA CUDA setups.
-
-# Core Python packages
-numpy
+# Shared utilities for analysing and preparing audio (Python 3.12).
+# Generators (ACE-Step, Stable Audio Open, Chatterbox, ...) are NOT installed
+# here: each pins its own torch and gets its own environment.
+# See docs/local-audio-stack.md.
+numpy<2
 scipy
 soundfile
 librosa
-pydub
-ffmpeg-python
 pyyaml
-tqdm
-
-# Local ML / audio generation
-transformers>=4.41.0
-accelerate>=0.30.0
-diffusers>=0.27.0
-huggingface-hub
-sentencepiece
-
-# Audio / generation ecosystem
-torch>=2.3.0
-torchaudio>=2.3.0
-
-# Optional but useful for prompt/evaluation workflows
-pandas
-matplotlib
-seaborn
-
-# Dev tooling
+audio-separator
 pytest
-black
-ruff

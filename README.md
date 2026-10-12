@@ -17,12 +17,10 @@ No AI-generated music is treated as approved material unless the creator explici
 
 ## Recommended direction
 
-For this project, the realistic path is:
-
 1. start from the film's creator-approved sound direction (its sound map / cue sheet in the project root);
-2. explore generative score only when that film's creator asks for it;
-3. prototype with local models such as AudioCraft or ComfyUI + audio generation nodes;
-4. keep all prompts, seeds, render settings, and reference clips in version control so experiments remain auditable.
+2. explore generative audio only when that film's creator asks for it;
+3. pick the generator from the survey in [`docs/local-audio-stack.md`](docs/local-audio-stack.md): ACE-Step 1.5 (music), MOSS-SoundEffect / Stable Audio Open (effects, ambience), HunyuanVideo-Foley (foley from picture), Chatterbox (voice), audio-separator (stems);
+4. check the **weights** license before any output goes into a film, and log prompt, seed, model version and license for every run.
 
 ## Layout
 
@@ -45,44 +43,22 @@ mocap-audio/
     └── README.md
 ```
 
-## Local-first stack
-
-### Recommended prototype path
-
-- AudioCraft (best single-tool path for text-to-music experimentation)
-- ComfyUI + audio nodes (best flexibility for custom pipelines)
-- FFmpeg / Sox / Audacity workflow for cleanup and export
-
-### Secondary tools
-
-- librosa / SoundFile for analysis and reference scripting
-- local waveform editors for trimming and mix review
-- seeds + prompt logs for experimentation traceability
-
 ## Quick start
 
-1. Create a local venv:
-   ```bash
-   cd /home/rafael/workspace/mocap-studio/mocap-audio
-   python3 -m venv .venv
-   source .venv/bin/activate
-   ```
-2. Install the recommended stack:
-   ```bash
-   pip install -r requirements-audio.txt
-   ```
-3. Bootstrap the recommended environment with the helper script:
-   ```bash
-   bash scripts/bootstrap_local_audio.sh
-   ```
-4. Keep all generated files under `outputs/` and all prompt/config logs under `playground/`.
+```bash
+bash scripts/bootstrap_local_audio.sh   # Python 3.12 .venv with shared utilities only
+```
+
+Each generator is installed in its own environment with the CUDA 12.8 torch
+build, because generators pin conflicting torch versions. Weights go to
+`/mnt/g/mocap-studio-downloads/models/`, never into git.
 
 ## Working policy
 
 - Score/underscore prototypes stay clearly labeled as `prototype`, never `approved`.
 - Any created music must be matched to a narrative reason, not generated blindly.
 - Local open-source tools are preferred over cloud-first tools for reproducibility.
-- Prioritize texture, restraint, and silence over a dense score.
+- Non-commercial weights are for private reference tests only, never for a deliverable.
 
 ## Files to keep in the repo
 
@@ -94,11 +70,9 @@ mocap-audio/
 
 ## Future growth
 
-This repo is designed to expand into:
+Each of these becomes a task when a film needs it:
 
-- a small creative brief for score direction,
-- prompt catalogs for restrained underscore,
-- a local sample library,
-- evaluation notes on mood fit,
-- a reproducible render/export workflow for the final scene.
-# mocap-audio
+- one pinned environment (Dockerfile + hashed lockfile) per adopted generator,
+- a run-log format shared with the dashboard,
+- reusable prompt catalogs by sound category (ambience, foley, underscore),
+- a reproducible render/export workflow to the film's delivery format.
