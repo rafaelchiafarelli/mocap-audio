@@ -1,5 +1,5 @@
 # Shared utilities for analysing and preparing audio (Python 3.12).
-# Generators (ACE-Step, Stable Audio Open, Chatterbox, ...) are NOT installed
+# Generators (ACE-Step, MOSS-SoundEffect, Chatterbox, ...) are NOT installed
 # here: each pins its own torch and gets its own environment.
 # See docs/local-audio-stack.md.
 numpy<2
@@ -7,5 +7,4 @@ scipy
 soundfile
 librosa
 pyyaml
-audio-separator
 pytest

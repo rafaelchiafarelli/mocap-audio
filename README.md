@@ -19,8 +19,8 @@ No AI-generated music is treated as approved material unless the creator explici
 
 1. start from the film's creator-approved sound direction (its sound map / cue sheet in the project root);
 2. explore generative audio only when that film's creator asks for it;
-3. pick the generator from the survey in [`docs/local-audio-stack.md`](docs/local-audio-stack.md): ACE-Step 1.5 (music), MOSS-SoundEffect / Stable Audio Open (effects, ambience), HunyuanVideo-Foley (foley from picture), Chatterbox (voice), audio-separator (stems);
-4. check the **weights** license before any output goes into a film, and log prompt, seed, model version and license for every run.
+3. pick the generator from the survey in [`docs/local-audio-stack.md`](docs/local-audio-stack.md): ACE-Step 1.5 (music), MOSS-SoundEffect (effects, ambience), Chatterbox / Kokoro (voice); foley-from-picture and stem separation have no allowed model yet;
+4. use only models whose **weights** license allows commercial use (no `-NC`, not even for tests), and log prompt, seed, model version and license for every run.
 
 ## Layout
 
@@ -58,7 +58,7 @@ build, because generators pin conflicting torch versions. Weights go to
 - Score/underscore prototypes stay clearly labeled as `prototype`, never `approved`.
 - Any created music must be matched to a narrative reason, not generated blindly.
 - Local open-source tools are preferred over cloud-first tools for reproducibility.
-- Non-commercial weights are for private reference tests only, never for a deliverable.
+- Non-commercial or capped licenses are never used, not even for private tests.
 
 ## Files to keep in the repo
 
