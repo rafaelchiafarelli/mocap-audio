@@ -1,0 +1,33 @@
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.so
+
+# Local model cache
+models/*
+!models/README.md
+
+# Generated audio output
+outputs/*
+!outputs/README.md
+
+# Scratch / temporary files
+scratch/*
+!scratch/README.md
+playground/*
+!playground/README.md
+
+# OS/editor junk
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Logging
+*.log
+
+# Dataset caches
+.cache/
