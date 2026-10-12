@@ -65,7 +65,7 @@ Then install ComfyUI from its upstream repository and add any audio generation n
 1. Create a reference mood sheet: room tone, quiet ticking, low harmonic bed, silence beats.
 2. Generate 10–30 second concept clips only.
 3. Keep a log of prompt + seed + model version + runtime.
-4. Rate each clip for fit with the workshop scene.
+4. Rate each clip for fit with the target scene's approved sound direction.
 5. Drop any output that feels like a trailer or a full score.
 6. Treat the winner as a prototype, not a final cue.
 
