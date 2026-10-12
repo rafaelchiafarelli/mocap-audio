@@ -2,7 +2,7 @@
 
 Local-first audio experimentation for the Mocap Studio project.
 
-This repository is intentionally narrow: it supports the sound and music exploration work for the workshop scene, especially the selective ticking / silence strategy and any later, creator-approved restrained score experiments.
+This repository is the audio workhorse: reusable tools and a local stack for sound and music exploration. It is film-agnostic. Each film's sound decisions, cue maps and briefs live in that film's project root (e.g. `<project-root>/analysis/work/`), and render outputs from this stack are written for a named project and task, never kept here as film material.
 
 ## Purpose
 
@@ -19,8 +19,8 @@ No AI-generated music is treated as approved material unless the creator explici
 
 For this project, the realistic path is:
 
-1. keep SOUND-01 as the confirmed baseline: selective ticking, room tone, and silence-led rhythm;
-2. treat SOUND-02 as an optional future exploration only when the creator says yes;
+1. start from the film's creator-approved sound direction (its sound map / cue sheet in the project root);
+2. explore generative score only when that film's creator asks for it;
 3. prototype with local models such as AudioCraft or ComfyUI + audio generation nodes;
 4. keep all prompts, seeds, render settings, and reference clips in version control so experiments remain auditable.
 
@@ -32,7 +32,6 @@ mocap-audio/
 ├── .gitignore
 ├── requirements-audio.txt
 ├── docs/
-│   ├── sound-02-draft.md
 │   └── local-audio-stack.md
 ├── scripts/
 │   └── bootstrap_local_audio.sh
