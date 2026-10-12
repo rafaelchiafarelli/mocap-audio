@@ -1,56 +1,21 @@
 #!/usr/bin/env bash
+# Shared audio utilities only. Generators get their own environment each
+# (docs/local-audio-stack.md); weights go to /mnt/g/mocap-studio-downloads/models/.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
-echo "==> Creating local virtual environment"
-python3 -m venv .venv
-source .venv/bin/activate
+PYTHON="${PYTHON:-python3.12}"
 
-python -m pip install --upgrade pip setuptools wheel
+echo "==> Creating .venv with $PYTHON"
+"$PYTHON" -m venv .venv
+.venv/bin/python -m pip install --upgrade pip
+.venv/bin/python -m pip install -r requirements-audio.txt
 
-echo "==> Installing core audio and ML packages"
-python -m pip install \
-  numpy \
-  scipy \
-  soundfile \
-  librosa \
-  pydub \
-  ffmpeg-python \
-  pyyaml \
-  tqdm \
-  transformers \
-  accelerate \
-  diffusers \
-  huggingface-hub \
-  sentencepiece \
-  pandas \
-  matplotlib \
-  seaborn \
-  pytest \
-  black \
-  ruff
+cat <<'MSG'
 
-echo "==> Installing PyTorch + TorchAudio"
-python -m pip install \
-  torch \
-  torchaudio \
-  --index-url https://download.pytorch.org/whl/cu121
+Shared utilities installed in .venv.
 
-echo "==> Installing AudioCraft"
-python -m pip install audiocraft
-
-cat <<'EOF'
-
-Bootstrap complete.
-
-Next steps:
-1. Put your reference audio and prompt notes under ./playground/
-2. Test a single short prompt before generating longer clips
-3. Archive every rendering in ./outputs/
-4. Keep scores clearly labeled as prototype-only
-
-Recommended local flow:
-- AudioCraft for first short constrained experiments
-- ComfyUI for more custom pipeline experiments if needed
-EOF
+Next: pick a generator from docs/local-audio-stack.md, check its weights
+license, and install it in its own environment with the CUDA 12.8 torch build.
+MSG

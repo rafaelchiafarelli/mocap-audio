@@ -1,7 +1,6 @@
 # Models
 
-This folder is reserved for model cache, reference checkpoints, and local downloads.
-
-Keep all large downloads out of version control. Place them here when they are downloaded locally for experimentation.
-
-This project prefers local-first, artifact-traceable workflows.
+Model weights don't live here. Store them under
+`/mnt/g/mocap-studio-downloads/models/<name>/<version>/` with a SHA256 line in
+`SHA256SUMS`, as `DEPENDENCIES.md` (section D) says, and record the weights
+license you checked next to them.
