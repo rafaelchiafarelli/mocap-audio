@@ -4,39 +4,45 @@
 model card before its output goes into a film, and record the version you
 checked in the run log.
 
-## The two rules that decide everything
+## The rules that decide everything
 
-1. **The weights' license, not the code's.** Several projects ship MIT code
-   with non-commercial weights. A film we may sell or screen needs weights
-   that allow commercial use. Non-commercial models are fine for private
-   reference tests only, and their output never goes into a deliverable.
+1. **Only licenses Rafael can profit from** (decided 2026-10-12). The films
+   must be sellable, so code, **weights** and assets need an open/free license
+   that allows commercial use (MIT, Apache-2.0, BSD, CC0, CC-BY; GPL-family for
+   tools). Non-commercial (`-NC`), research-only and capped "community"
+   licenses are **not used at all, not even for private tests**. Several
+   projects ship MIT code with restricted weights, so check the weights.
 2. **The Mocap Studio environment.** Python 3.12, CUDA 12.8 torch wheels
    (`DEPENDENCIES.md`), RTX 4080 with 16 GB. Each generator pins its own torch,
-   so **each generator gets its own isolated environment** (container or venv).
-   Don't install two generators into one environment.
+   so **each generator gets its own isolated environment**.
+3. **Local generation is allowed for audio** (decided 2026-10-12). This repo
+   covers recording, editing, analysis and generation.
 
 ## Recommendation by need
 
-| Need | First choice | Why | Fallback |
+| Need | Choice | License (checked 2026-10-12) | Notes |
 |---|---|---|---|
-| Music / score | **ACE-Step 1.5** | MIT code; Python 3.11–3.12; < 4 GB VRAM for the turbo model; 10 s–10 min; repainting (regenerate a section), LoRA training, 50+ languages with lyrics | Stable Audio Open (short textures, no vocals) |
-| Sound effects, ambience, room tone | **MOSS-SoundEffect v2.0** | Apache-2.0 per its Hugging Face tags; 48 kHz, up to 30 s, English/Chinese prompts | **Stable Audio Open 1.0**: 44.1 kHz stereo, up to 47 s, strongest on SFX/field recordings; Stability AI Community License |
-| Foley synced to picture (video → audio) | **HunyuanVideo-Foley** | Generates sound from the rendered shot itself. Tencent Hunyuan Community License: commercial use allowed (licence needed above 100 M MAU); **not licensed in the EU, UK or South Korea**; outputs may not be used to train other models | MMAudio: about 6 GB VRAM, 8 s default, but **CC-BY-NC weights** (reference tests only) |
-| Dialogue / temp voice | **Chatterbox** (Resemble AI) | MIT; voice cloning from a few seconds; `exaggeration` emotion control; multilingual model with a **Brazilian Portuguese** pack; every file is watermarked (Perth), which keeps synthetic audio identifiable | Kokoro (Apache-2.0, fixed voices, no cloning) for scratch narration |
-| Stem separation (reference tracks, cleanup) | **audio-separator** | MIT Python package wrapping the UVR model zoo (incl. RoFormer-class models) | Demucs: MIT but no longer actively maintained by its author |
-| Conversion, trimming, listening | FFmpeg, SoX, Audacity | Already in the house stack | — |
+| Music / score | **ACE-Step 1.5** | MIT code and weights; model card: generated music may be used commercially | Python 3.11–3.12; < 4 GB VRAM (turbo); 10 s–10 min; repainting, LoRA |
+| Sound effects, ambience, room tone | **MOSS-SoundEffect** | Apache-2.0 (Hugging Face tag) | 48 kHz, up to ~30 s, English/Chinese prompts |
+| Dialogue / temp voice | **Chatterbox** (Resemble AI) | MIT code and weights | Cloning, `exaggeration` emotion control, Brazilian Portuguese pack, Perth watermark |
+| Scratch narration | **Kokoro** | Apache-2.0 | Fixed voices, no cloning, fast |
+| Foley synced to picture | **gap: no allowed model** | — | HunyuanVideo-Foley (capped, territory-excluded community license) and MMAudio (CC-BY-NC weights) are excluded. Use MOSS-SoundEffect clips placed by hand, or record foley |
+| Stem separation | **gap: weights license unclear** | — | Demucs/HTDemucs: MIT tag on Hugging Face, but the weights are reported elsewhere as research-only/CC-BY-NC and the author hasn't clarified. UVR models (via audio-separator) carry mixed licenses. Don't use until one is confirmed |
+| Recording and editing | **Ardour** or **Audacity**; **FFmpeg**, **SoX** | GPL / LGPL (tools; outputs are yours) | DAW choice still open |
+| Analysis | `librosa`, `soundfile`, `scipy` | ISC / BSD | Shared utilities in `.venv` |
 
-## Not recommended as a base
+## Excluded by the license rule
 
-| Project | Why not |
+| Project | Why |
 |---|---|
-| **AudioCraft** (MusicGen, AudioGen) | Requires Python 3.9 + PyTorch 2.1 (conflicts with 3.12 / cu128), and its weights are CC-BY-NC 4.0. This was the earlier "primary" pick, now replaced by ACE-Step 1.5. |
-| MusicGen Stereo, YuE2 | Non-commercial weights. |
-| F5-TTS, IndexTTS-2, Higgs Audio v3 | Strong voices, but checkpoints are non-commercial or "contact us" for commercial use. |
-| Coqui XTTS-v2 | Weight license restricts commercial use. |
+| AudioCraft (MusicGen, AudioGen), MusicGen Stereo | CC-BY-NC 4.0 weights (also Python 3.9 + torch 2.1) |
+| Stable Audio Open | Stability AI Community License: free use only below a revenue cap |
+| HunyuanVideo-Foley | Tencent Hunyuan Community License: not licensed in the EU, UK or South Korea, licence needed above 100 M MAU, outputs may not train other models |
+| MMAudio | CC-BY-NC 4.0 weights |
+| YuE2, F5-TTS, IndexTTS-2, Higgs Audio v3, Coqui XTTS-v2 | Non-commercial or "contact us" weights |
 
-Not checked yet: DiffRhythm, TangoFlux, AudioLDM 2, CosyVoice 2. Survey
-them before adopting.
+Not checked yet: DiffRhythm, TangoFlux, AudioLDM 2, CosyVoice 2. Check the
+weights license first; most academic audio checkpoints are non-commercial.
 
 ## Voice cloning and consent
 
@@ -74,5 +80,8 @@ watermarked generators for any synthetic dialogue.
 - MMAudio: https://github.com/hkchengrex/MMAudio
 - Chatterbox: https://github.com/resemble-ai/chatterbox
 - AudioCraft: https://github.com/facebookresearch/audiocraft
+- ACE-Step 1.5 model card: https://huggingface.co/ACE-Step/Ace-Step1.5
+- Chatterbox model card: https://huggingface.co/ResembleAI/chatterbox
+- HTDemucs weights license discussion: https://huggingface.co/adefossez/HTDemucs/discussions/1
 - TTS license overview (secondary): https://localaimaster.com/blog/best-local-tts-models
 - Separation overview (secondary): https://stemsplit.io/blog/free-stem-separation-software
